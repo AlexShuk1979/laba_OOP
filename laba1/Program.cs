@@ -35,6 +35,7 @@ namespace laba1
         public static double[,] del(double[,] mas,int n,int m)
         {
             int col = column(mas, n, m);
+            
             for(int i=0;i<n; i++)
             {
 
@@ -68,7 +69,10 @@ namespace laba1
             Console.WriteLine("Исходный массив");
             output(mas, n, m);
             Console.WriteLine("\nномер удаляемого столбца={0}\n", column(mas, n, m)+1);
-            output( del(mas, n, m), n, m-1);
+            if (m <= 1)
+                Console.WriteLine("массив не существует!");
+            else
+                output( del(mas, n, m), n, m-1);
             Console.ReadKey();
 
         }
