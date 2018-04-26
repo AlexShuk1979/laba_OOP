@@ -8,12 +8,12 @@ namespace laba1
 {
     class Program
     {
-        public static int column(double[,] mass, int n,int m)
+        public static int column(double[,] mass)
         {
             int col = 0;
             double max = mass[0, 0];
-            for(int i=0; i<n;i++)
-                for(int j=0;j<m;j++)
+            for(int i=0; i<mass.GetLength(0);i++)
+                for(int j=0;j<mass.GetLength(1);j++)
                 {
                     if(max<mass[i,j])
                     {
@@ -23,30 +23,30 @@ namespace laba1
                 }
             return col;
         }
-        public static void output(double[,] mas, int n, int m)
+        public static void output(double[,] mas)
         {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < mas.GetLength(0); i++)
             {
-                for (int j = 0; j < m; j++)
+                for (int j = 0; j < mas.GetLength(1); j++)
                     Console.Write("{0:f3} ", mas[i, j]);
                 Console.WriteLine();
             }
         }
-        public static double[,] del(double[,] mas,int n,int m)
+        public static double[,] del(double[,] mas)
         {
-            int col = column(mas, n, m);
-            
-            for(int i=0;i<n; i++)
+            int col = column(mas);
+            double[,] outmas = new double[mas.GetLength(0), mas.GetLength(1)-1];
+            for(int i=0;i< mas.GetLength(0); i++)
             {
 
-                for (int j = 0; j < m; j++)
+                for (int j = 0; j < mas.GetLength(1); j++)
                     if (j != col)
                         if (j < col)
-                            mas[i, j] = mas[i, j];
+                            outmas[i, j] = mas[i, j];
                         else
-                            mas[i, j - 1] = mas[i, j];
+                            outmas[i, j - 1] = mas[i, j];
             }
-            return mas;
+            return outmas;
         }
 
         static void Main(string[] args)
@@ -67,12 +67,12 @@ namespace laba1
                     mas[i, j] = rnd.NextDouble();
 
             Console.WriteLine("Исходный массив");
-            output(mas, n, m);
-            Console.WriteLine("\nномер удаляемого столбца={0}\n", column(mas, n, m)+1);
+            output(mas);
+            Console.WriteLine("\nномер удаляемого столбца={0}\n", column(mas)+1);
             if (m <= 1)
                 Console.WriteLine("массив не существует!");
             else
-                output( del(mas, n, m), n, m-1);
+                output( del(mas));
             Console.ReadKey();
 
         }
